@@ -20,6 +20,10 @@
   },
   "homepage": "https://github.com/hunchcloud/meta-card#readme",
   "browserslist": "last 2 Chrome versions",
+  "scripts": {
+    "build": "rollup -c",
+    "release": "npm run build && npm publish --access public"
+  },
   "devDependencies": {
     "@rollup/plugin-typescript": "^4.1.1",
     "rollup": "^2.6.1",
