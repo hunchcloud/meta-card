@@ -1,14 +1,28 @@
 import { fetchMeta } from "./meta-proxy";
 
-const cls = "MetaImg__img";
+const template = document.createElement("template");
+template.innerHTML = `
+<style>
+:host {
+  display: inline-block;
+}
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: inherit;
+}
+</style>
+<img loading="lazy">
+`;
 
 class MetaImg extends HTMLElement {
   $img: HTMLImageElement;
 
   constructor() {
     super();
-    this.innerHTML = `<img class="${cls}" loading="lazy">`;
-    this.$img = this.querySelector(`.${cls}`) as HTMLImageElement;
+    const shadow = this.attachShadow({ mode: "open" });
+    shadow.appendChild(template.content.cloneNode(true));
+    this.$img = shadow.querySelector("img") as HTMLImageElement;
   }
 
   static get observedAttributes() {
