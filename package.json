@@ -22,10 +22,12 @@
   "browserslist": "last 2 Chrome versions",
   "scripts": {
     "build": "rollup -c",
+    "build:demo": "parcel build --public-url . example/index.html",
     "release": "npm run build && npm publish --access public"
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "^4.1.1",
+    "cssnano": "^4.1.10",
     "rollup": "^2.6.1",
     "rollup-plugin-terser": "^5.3.0",
     "tslib": "^1.11.1",

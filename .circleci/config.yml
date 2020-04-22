@@ -4,6 +4,42 @@ defaults: &defaults
 
 version: 2.1
 jobs:
+  build-demo:
+    <<: *defaults
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+          - deps-{{ checksum "package.json" }}
+
+      - run:
+          command: |
+            git checkout -b gh-pages
+            git reset --hard origin/master
+
+      - run:
+          command: |
+            yarn add parcel
+            yarn build:demo
+            # revert package.json so that cache key is not changed
+            git checkout -- package.json
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: deps-{{ checksum "package.json" }}
+
+      - run:
+          command: |
+            mv dist/* .
+            git config user.email "remotenonsense@gmail.com"
+            git config user.name "CircleCI"
+            git add . && git commit -am 'build gh-pages'
+            # https://stackoverflow.com/a/48763205
+            git push -q -f https://${GH_PAGES_TOKEN}@github.com/hunchcloud/meta-card.git gh-pages
+
   release:
     <<: *defaults
 
@@ -28,6 +64,12 @@ jobs:
 workflows:
   main:
     jobs:
+      - build-demo:
+          context: gh-pages
+          filters:
+            branches:
+              only:
+                - master
       - release:
           context: npm-release
           filters:
