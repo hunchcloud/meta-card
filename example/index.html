@@ -3,16 +3,28 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>meta-proxy</title>
+    <title>Demo of &lt;meta-card&gt;</title>
   </head>
   <body>
     <style>
+      * {
+        box-sizing: border-box;
+      }
       body {
         font-family: sans;
       }
-      meta-card {
+      .container {
+        width: 30rem;
         display: block;
         margin: 0 auto;
+      }
+      input {
+        width: 100%;
+        line-height: 1.5rem;
+        border-radius: 0.5rem;
+        padding: 0.5rem 0.75rem;
+        margin-bottom: 1rem;
+        border: 1px solid #e1e8ed;
       }
       meta-img {
         width: 2rem;
@@ -22,8 +34,16 @@
         right: 1rem;
       }
     </style>
-    <meta-card href="https://google.com" style="width: 30rem;"></meta-card>
-    <meta-img href="https://github.com/hunchcloud/meta-card"></meta-img>
+    <div class="container">
+      <h3>URL</h3>
+      <input type="text" value="https://google.com" />
+      <h3>A card of meta (og) tags</h3>
+      <meta-card href="https://google.com" style="width: 30rem;"></meta-card>
+    </div>
+    <a href="https://github.com/hunchcloud/meta-card"
+      ><meta-img href="https://github.com/hunchcloud/meta-card"></meta-img
+    ></a>
+    <script src="./example.ts"></script>
 
     <script src="../src/meta-card.ts"></script>
     <script src="../src/meta-img.ts"></script>

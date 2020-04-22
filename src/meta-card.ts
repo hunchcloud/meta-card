@@ -68,8 +68,10 @@ class MetaCard extends HTMLElement {
     return ["href"];
   }
 
-  attributeChangedCallback() {
-    this.render();
+  attributeChangedCallback(_, oldVal, newVal) {
+    if (oldVal !== newVal) {
+      this.render();
+    }
   }
 
   async render() {
