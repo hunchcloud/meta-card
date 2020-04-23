@@ -1,13 +1,29 @@
 import { terser } from "rollup-plugin-terser";
 import typescript from "@rollup/plugin-typescript";
 
-export default [
-  {
-    input: "src/meta-img.ts",
-    output: {
-      file: "meta-img.umd.js",
-      format: "umd"
+const entries = ["meta-card", "meta-img"];
+
+export default entries
+  .map(entry => [
+    {
+      input: `src/${entry}.ts`,
+      output: [
+        {
+          file: `dist/${entry}.js`,
+          format: "es"
+        }
+      ],
+      plugins: [typescript()]
     },
-    plugins: [typescript(), terser()]
-  }
-];
+    {
+      input: `src/${entry}.ts`,
+      output: [
+        {
+          file: `dist/${entry}.min.js`,
+          format: "iife"
+        }
+      ],
+      plugins: [typescript(), terser()]
+    }
+  ])
+  .flat();

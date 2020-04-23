@@ -1,10 +1,11 @@
 {
   "name": "@hunchcloud/meta-card",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Custom elements to render meta tags",
   "files": [
-    "meta-img.umd.js"
+    "dist"
   ],
+  "main": "dist/meta-card.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/hunchcloud/meta-card.git"
