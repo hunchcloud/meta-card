@@ -13,6 +13,7 @@ a {
 }
 .img {
   width: 100%;
+  display: block;
 }
 
 .info {
@@ -24,14 +25,19 @@ a {
   font-weight: 500;
   margin-bottom: 0.5em;
 }
+
 .description {
   font-size: 0.875em;
   margin-bottom: 0.5em;
   color: #657786;
 }
+
 .url {
   font-size: 0.75em;
   color: #657786;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 </style>
 
@@ -74,6 +80,11 @@ class MetaCard extends HTMLElement {
     }
   }
 
+  stripSchema(href: string) {
+    const url = new URL(href);
+    return `${url.host}${url.pathname}`;
+  }
+
   async render() {
     const href = this.getAttribute("href");
     if (href) {
@@ -82,7 +93,7 @@ class MetaCard extends HTMLElement {
       this.$img.src = image;
       this.$title.innerText = title;
       this.$description.innerText = description;
-      this.$url.innerText = href;
+      this.$url.innerText = this.stripSchema(href);
     }
   }
 }
