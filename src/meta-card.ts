@@ -41,7 +41,7 @@ a {
 }
 </style>
 
-<a>
+<a target="_blank">
   <img class="img" loading="lazy">
   <div class="info">
     <div class="title"></div>
