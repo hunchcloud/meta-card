@@ -1,6 +1,6 @@
 {
   "name": "@hunchcloud/meta-card",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Custom elements to render meta tags",
   "files": [
     "dist"
@@ -12,7 +12,9 @@
   },
   "keywords": [
     "custom elements",
-    "web components"
+    "web components",
+    "open graph",
+    "meta tags"
   ],
   "author": "Ping Chen",
   "license": "BSD-3-Clause",

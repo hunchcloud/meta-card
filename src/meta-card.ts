@@ -32,6 +32,18 @@ a {
   color: #657786;
 }
 
+.origin {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  width: 1em;
+  height: 1em;
+  border-radius: 100%;
+  margin-right: 0.25em;
+}
+
 .url {
   font-size: 0.75em;
   color: #657786;
@@ -46,7 +58,10 @@ a {
   <div class="info">
     <div class="title"></div>
     <div class="description"></div>
-    <div class="url"></div>
+    <div class="origin">
+      <img class="logo" loading="lazy">
+      <div class="url"></div>
+    </div>
   </div>
 </a>
 `;
@@ -56,6 +71,7 @@ class MetaCard extends HTMLElement {
   $title: HTMLDivElement;
   $img: HTMLImageElement;
   $description: HTMLDivElement;
+  $logo: HTMLImageElement;
   $url: HTMLDivElement;
 
   constructor() {
@@ -67,6 +83,7 @@ class MetaCard extends HTMLElement {
     this.$img = shadow.querySelector(`.img`) as HTMLImageElement;
     this.$title = shadow.querySelector(`.title`) as HTMLDivElement;
     this.$description = shadow.querySelector(`.description`) as HTMLDivElement;
+    this.$logo = shadow.querySelector(`.logo`) as HTMLImageElement;
     this.$url = shadow.querySelector(`.url`) as HTMLDivElement;
   }
 
@@ -89,10 +106,14 @@ class MetaCard extends HTMLElement {
     const href = this.getAttribute("href");
     if (href) {
       this.$card.href = href;
-      const { image, title, description, url } = await fetchMeta(href);
+      const { image, title, description, logo } = await fetchMeta(href);
       this.$img.src = image;
       this.$title.innerText = title;
       this.$description.innerText = description;
+      if (logo) {
+        this.$logo.src = logo;
+        this.$logo.hidden = false;
+      }
       this.$url.innerText = this.stripSchema(href);
     }
   }
