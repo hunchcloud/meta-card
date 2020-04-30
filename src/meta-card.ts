@@ -82,7 +82,7 @@ class MetaCard extends HTMLElement {
 
   stripSchema(href: string) {
     const url = new URL(href);
-    return `${url.host}${url.pathname}`;
+    return `${url.host}${url.pathname === "/" ? "" : url.pathname}`;
   }
 
   async render() {
