@@ -1,6 +1,6 @@
 {
   "name": "@hunchcloud/meta-card",
-  "version": "0.3.3",
+  "version": "0.4.0",
   "description": "Custom elements to render meta tags",
   "files": [
     "dist"
