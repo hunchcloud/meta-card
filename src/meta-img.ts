@@ -36,8 +36,10 @@ class MetaImg extends HTMLElement {
   async render() {
     const href = this.getAttribute("href");
     if (href) {
-      const { image } = await fetchMeta(href);
-      this.$img.src = image;
+      const { image, url } = await fetchMeta(href);
+      // Fallback to the url if image field is null, this is useful when passing
+      // img url to <meta-img href="https://example.com/a.jpg"></meta-img>.
+      this.$img.src = image || url;
     }
   }
 }
