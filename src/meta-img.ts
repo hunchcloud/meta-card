@@ -1,3 +1,4 @@
+import { hunchObserver } from "./hunch-observer";
 import { fetchMeta } from "./meta-proxy";
 
 const template = document.createElement("template");
@@ -17,6 +18,7 @@ img {
 
 class MetaImg extends HTMLElement {
   $img: HTMLImageElement;
+  loaded: Boolean = false;
 
   constructor() {
     super();
@@ -30,6 +32,17 @@ class MetaImg extends HTMLElement {
   }
 
   attributeChangedCallback() {
+    if (this.loaded) {
+      this.render();
+    }
+  }
+
+  connectedCallback() {
+    hunchObserver.observe(this);
+  }
+
+  load() {
+    this.loaded = true;
     this.render();
   }
 

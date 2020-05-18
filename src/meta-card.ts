@@ -1,3 +1,4 @@
+import { hunchObserver } from "./hunch-observer";
 import { fetchMeta } from "./meta-proxy";
 
 const template = document.createElement("template");
@@ -73,6 +74,7 @@ class MetaCard extends HTMLElement {
   $description: HTMLDivElement;
   $logo: HTMLImageElement;
   $url: HTMLDivElement;
+  loaded: Boolean = false;
 
   constructor() {
     super();
@@ -92,9 +94,18 @@ class MetaCard extends HTMLElement {
   }
 
   attributeChangedCallback(_: string, oldVal: string, newVal: string) {
-    if (oldVal !== newVal) {
+    if (oldVal !== newVal && this.loaded) {
       this.render();
     }
+  }
+
+  connectedCallback() {
+    hunchObserver.observe(this);
+  }
+
+  load() {
+    this.loaded = true;
+    this.render();
   }
 
   stripSchema(href: string) {
