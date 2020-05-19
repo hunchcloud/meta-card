@@ -1,13 +1,16 @@
 const $input = document.querySelector("input");
+const $metaCard = document.querySelector("meta-card");
 
-$input?.addEventListener("blur", e => {
-  const el = e.target as HTMLInputElement;
-  document.querySelector("meta-card")?.setAttribute("href", el.value);
-});
+if ($input && $metaCard) {
+  $input.addEventListener("focus", () => $input.select());
 
-$input?.addEventListener("keydown", e => {
-  const el = e.target as HTMLInputElement;
-  if (e.key === "Enter") {
-    document.querySelector("meta-card")?.setAttribute("href", el.value);
-  }
-});
+  $input.addEventListener("blur", () => {
+    $metaCard.setAttribute("href", $input.value);
+  });
+
+  $input.addEventListener("keydown", e => {
+    if (e.key === "Enter") {
+      $metaCard.setAttribute("href", $input.value);
+    }
+  });
+}
